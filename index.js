@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require('cors')
 require("dotenv").config()
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 5000
 const app = express();
 const db = require('./models')
 
@@ -11,9 +11,13 @@ app.use(express.json())
 app.use(express.urlencoded())
 app.use(express.urlencoded({ extended: true }))
 
-
 app.use('/', require('./routes/Home'))
+app.use('/games', require('./routes/Games'))
+app.use('/score', require('./routes/Score'))
+app.use('/news', require('./routes/News'))
+app.use('/about', require('./routes/About'))
 app.use('/auth', require('./routes/Auth'))
+
 
 async function Main() {
 	try {
