@@ -12,17 +12,17 @@ app.use(express.urlencoded())
 app.use(express.urlencoded({ extended: true }))
 
 
-require('./routes/Home')
+app.use('/', require('./routes/Home'))
+app.use('/auth', require('./routes/Auth'))
 
-app.get("/", (req, res) => {
-	res.status(200).send("Hallo World!")
-})
-app.post("/", (req, res) => {
-	console.log(req.body);
-	res.status(200).send({ message: "chishta" })
-})
+async function Main() {
+	try {
+		await db.sequelize.sync();
+		app.listen(PORT, () => console.log(`Server is running and listening the port: ${PORT}.`));
+	} catch (error) {
+		console.log(error)
+		process.exit(1)
+	}
+}
 
-
-db.sequelize.sync().then(() => {
-	app.listen(PORT, () => console.log(`Server is running and listening the port: ${PORT}.`));
-}, console.log)
+Main()
