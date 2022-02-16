@@ -12,7 +12,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 
-app.use('/api/auth', require('./router/auth'))
+app.use('/api/auth', require('./router/authRouter'))
 // app.use('/auth', require('./routes/Auth'))
 
 
