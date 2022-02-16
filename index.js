@@ -18,7 +18,8 @@ app.use('/api/auth', require('./router/authRouter'))
 
 async function Main() {
 	try {
-		await db.sequelize.sync({ force: true });
+		await db.sequelize.sync(); //{ force: true }
+		console.log('\n\n\n');
 		app.listen(PORT, () => console.log(`Server is running and listening the port: ${PORT}.`));
 	} catch (error) {
 		console.log(error)
