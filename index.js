@@ -11,18 +11,9 @@ app.use(cors())
 app.use(express.json())
 app.use(cookieParser())
 
-<<<<<<< HEAD
-app.use('/', require('./routes/Home'))
-app.use('/games', require('./routes/Games'))
-app.use('/score', require('./routes/Score'))
-app.use('/news', require('./routes/News'))
-app.use('/about', require('./routes/About'))
-app.use('/auth', require('./routes/Auth'))
-=======
 
 app.use('/api/auth', require('./router/auth'))
 // app.use('/auth', require('./routes/Auth'))
->>>>>>> test
 
 
 async function Main() {
