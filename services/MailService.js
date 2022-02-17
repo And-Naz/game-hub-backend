@@ -2,7 +2,7 @@ const nodeMailer = require('nodemailer')
 class MailService {
 	async sendActivationMail(to, link) {
 		await this.transporter.sendMail({
-			from: `Game-Hub: ${process.env.SMTP_USER}`,
+			from: `Game-Hub ${process.env.SMTP_USER}`,
 			to,
 			subject: 'Account activation on Game-Hub',
 			text: '',

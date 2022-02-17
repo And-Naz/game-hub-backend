@@ -4,12 +4,13 @@ const { User } = require('../models')
 const MailService = require('./MailService')
 const TokenService = require('./TokenService')
 const UserDto = require('../dtos/UserDto')
+const ApiError = require('../exceptions/ApiError')
 
 class UserService {
 	async registration(email, password) {
 		const candidate = await User.findOne({ where: { email } })
 		if (candidate) {
-			throw new Error('User with same email already exists.')
+			throw ApiError.Conflict(`User with email ${email} already exists`)
 		}
 		const hashPassword = await bcrypt.hash(password, Number(process.env.PASSWORD_HASHING_SALT))
 		const activationLink = uuid.v4()
@@ -24,9 +25,53 @@ class UserService {
 	async activate(activationLink) {
 		const user = await User.findOne({ where: { activationLink } })
 		if (!user) {
-			throw new Error('Incorrect activation link.')
+			throw ApiError.BadRequest('Incorrect activation link')
 		}
-		await User.update({ ...user.dataValues, refreshToken }, { id: user.dataValues.id });
+		await User.update({ isActivated: true }, { where: {id: user.dataValues.id} });
+	}
+
+	async login(email, password) {
+		const user = await User.findOne({ where: { email } })
+		if (!user) {
+			throw ApiError.NotFound(`User with email ${email} doesn't exists`)
+		}
+		const isPasswordEqual = await bcrypt.compare(password, user.password)
+		if (!isPasswordEqual) {
+			throw ApiError.BadRequest('Invalid password')
+		}
+		const userDto = new UserDto(user.dataValues)
+		const tokens = TokenService.generateTokens({ ...userDto })
+		await TokenService.saveToken(userDto.id, tokens.refreshToken)
+		return { ...tokens, user: userDto }
+	}
+
+	async logout(refreshToken) {
+		const tokenRetVal = await TokenService.removeToken(refreshToken)
+		return !!tokenRetVal
+	}
+
+	async refresh(refreshToken) {
+		if (!refreshToken) {
+			throw ApiError.UnauthorizedError()
+		}
+		const userData = TokenService.validateRefreshToken(refreshToken)
+		if (!userData) {
+			throw ApiError.UnauthorizedError()
+		}
+		const tokenFromDB = await TokenService.findToken(refreshToken)
+		if (!tokenFromDB) {
+			throw ApiError.UnauthorizedError()
+		}
+
+		const user = await User.findByPk(userData.id)
+		const userDto = new UserDto(user.dataValues)
+		const tokens = TokenService.generateTokens({ ...userDto })
+		await TokenService.saveToken(userDto.id, tokens.refreshToken)
+		return { ...tokens, user: userDto }
+	}
+
+	async getAllUsers() {
+		return await User.findAll()
 	}
 }
 

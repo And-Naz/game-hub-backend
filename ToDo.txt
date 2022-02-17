@@ -1,3 +1,5 @@
 UserService -i registration method@ ashxatuma menak email, passwordov, avelacnel mnacac fielder@
 UserService -i send mail@ tanel verj returnic araj
 UserDto -i fielder@ petqa avelanan
+routerum validationerum avelacnel mnacac fielderin@
+user controleri mej logut lineluc kareliya menak 200 status code uxarkel
