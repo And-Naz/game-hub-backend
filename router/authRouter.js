@@ -5,9 +5,9 @@ const { body } = require('express-validator')
 
 // /api/auth/registration
 router.post('/registration',
-    body('email').isEmail(),
-    body('password').isString().isLength({min: 6, max: 32}),
-    UserController.registration
+	body('email').isEmail(),
+	body('password').isString().isLength({ min: 6, max: 32 }),
+	UserController.registration
 );
 
 // /api/auth/login

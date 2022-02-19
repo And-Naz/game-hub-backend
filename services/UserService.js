@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt')
 const uuid = require('uuid')
+const { Op } = require("sequelize");
 const { User } = require('../models')
 const MailService = require('./MailService')
 const TokenService = require('./TokenService')
@@ -7,14 +8,23 @@ const UserDto = require('../dtos/UserDto')
 const ApiError = require('../exceptions/ApiError')
 
 class UserService {
-	async registration(email, password) {
-		const candidate = await User.findOne({ where: { email } })
+	async registration({ userName, email, password, gender }) {
+		const candidate = await User.findOne({
+			where: {
+				[Op.or]: [
+					{ userName },
+					{ email }
+				]
+			}
+		})
 		if (candidate) {
 			throw ApiError.Conflict(`User with email ${email} already exists`)
 		}
 		const hashPassword = await bcrypt.hash(password, Number(process.env.PASSWORD_HASHING_SALT))
 		const activationLink = uuid.v4()
-		const user = await User.create({ email, password: hashPassword, activationLink })
+		const user = await User.create({
+			userName, email, gender, activationLink, password: hashPassword
+		})
 		await MailService.sendActivationMail(email, `${process.env.API_URL}/api/auth/activate/${activationLink}`)
 		const userDto = new UserDto(user.dataValues)
 		const tokens = TokenService.generateTokens({ ...userDto })
@@ -27,11 +37,18 @@ class UserService {
 		if (!user) {
 			throw ApiError.BadRequest('Incorrect activation link')
 		}
-		await User.update({ isActivated: true }, { where: {id: user.dataValues.id} });
+		await User.update({ isActivated: true }, { where: { id: user.dataValues.id } });
 	}
 
-	async login(email, password) {
-		const user = await User.findOne({ where: { email } })
+	async login(userNameOrEmail, password) {
+		const user = await User.findOne({
+			where: {
+				[Op.or]: [
+					{ username: userNameOrEmail },
+					{ email: userNameOrEmail }
+				]
+			}
+		})
 		if (!user) {
 			throw ApiError.NotFound(`User with email ${email} doesn't exists`)
 		}

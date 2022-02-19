@@ -10,10 +10,10 @@ class UserController {
 			if (!errors.isEmpty()) {
 				return next(ApiError.BadRequest("Validation error", errors.array()))
 			}
-			const { email, password } = req.body
-			const userData = await UserService.registration(email, password)
-			res.cookie('refreshToken', userData.refreshToken, { maxAge: process.env.JWT_REFRESH_EXPIRES_IN_NUMBER, httpOnly: true })
-			return res.status(200).json(userData)
+			const formData = { ...req.body }
+			const userData = await UserService.registration(formData)
+			res.cookie('refreshToken', userData.refreshToken, { maxAge: Number(process.env.JWT_REFRESH_EXPIRES_IN_NUMBER), httpOnly: true })
+			return res.status(201).json(userData)
 		} catch (e) {
 			next(e)
 		}
@@ -21,9 +21,9 @@ class UserController {
 
 	async login(req, res, next) {
 		try {
-			const { email, password } = req.body
-			const userData = await UserService.login(email, password)
-			res.cookie('refreshToken', userData.refreshToken, { maxAge: process.env.JWT_REFRESH_EXPIRES_IN_NUMBER, httpOnly: true })
+			const { userNameOrEmail, password } = req.body
+			const userData = await UserService.login(userNameOrEmail, password)
+			res.cookie('refreshToken', userData.refreshToken, { maxAge: Number(process.env.JWT_REFRESH_EXPIRES_IN_NUMBER), httpOnly: true })
 			return res.status(200).json(userData)
 		} catch (e) {
 			next(e)
@@ -32,7 +32,7 @@ class UserController {
 
 	async logout(req, res, next) {
 		try {
-			const {refreshToken} = req.cookies
+			const { refreshToken } = req.cookies
 			await UserService.logout(refreshToken)
 			res.clearCookie('refreshToken')
 			return res.status(204).send()
@@ -53,7 +53,7 @@ class UserController {
 
 	async refresh(req, res, next) {
 		try {
-			const {refreshToken} = req.cookies
+			const { refreshToken } = req.cookies
 			const tokens = await UserService.refresh(refreshToken)
 			res.cookie('refreshToken', tokens.refreshToken, { maxAge: process.env.JWT_REFRESH_EXPIRES_IN_NUMBER, httpOnly: true })
 			return res.status(201).json(tokens)

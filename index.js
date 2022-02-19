@@ -8,13 +8,12 @@ const PORT = process.env.PORT || 5000
 const app = express();
 const db = require('./models')
 
-app.use(cors())
 app.use(express.json())
 app.use(cookieParser())
+app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }))
 
 
 app.use('/api/auth', require('./router/authRouter'))
-// app.use('/auth', require('./routes/Auth'))
 
 app.use(ErrorMiddleware)
 
