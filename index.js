@@ -14,13 +14,14 @@ app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }))
 
 
 app.use('/api/auth', require('./router/authRouter'))
+app.use('/api/games', require('./router/gameRouter'))
 
 app.use(ErrorMiddleware)
 
 async function Main() {
 	let server = null
 	try {
-		await db.sequelize.sync(); //{ force: true }
+		await db.sequelize.sync();
 		console.log('\n\n\n');
 		server = app.listen(PORT, () => console.log(`Server is running and listening the port: ${PORT}.`));
 	} catch (error) {

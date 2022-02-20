@@ -9,14 +9,14 @@
 	"test": {
 		"username": "root",
 		"password": null,
-		"database": "aca_game_hub_test",
+		"database": "aca_game_hub",
 		"host": "127.0.0.1",
 		"dialect": "mysql"
 	},
 	"production": {
 		"username": "root",
 		"password": null,
-		"database": "aca_game_hub_production",
+		"database": "aca_game_hub",
 		"host": "127.0.0.1",
 		"dialect": "mysql"
 	}
