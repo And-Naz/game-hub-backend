@@ -2,7 +2,9 @@
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class News extends Model {
-    static associate(models) { }
+    static associate(models) {
+      News.belongsTo(models.Game)
+    }
   }
   News.init({
     title: {

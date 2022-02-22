@@ -15,6 +15,7 @@ app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }))
 
 app.use('/api/auth', require('./router/authRouter'))
 app.use('/api/games', require('./router/gameRouter'))
+app.use('/api/news', require('./router/newsRouter'))
 
 app.use(ErrorMiddleware)
 
