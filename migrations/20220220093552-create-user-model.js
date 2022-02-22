@@ -24,7 +24,8 @@ module.exports = {
 			},
 			gender: {
 				type: Sequelize.STRING,
-				allowNull: false
+				allowNull: false,
+				defaultValue: "other",
 			},
 			isActivated: {
 				type: Sequelize.BOOLEAN,

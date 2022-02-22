@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
 	class User extends Model {
 		static associate(models) {
 			User.hasMany(models.Token);
+			User.hasOne(models.Games);
 		}
 	};
 	User.init({
@@ -23,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		gender: {
 			type: DataTypes.STRING,
-			allowNull: false
+			allowNull: false,
+			defaultValue: "other"
 		},
 		isActivated: {
 			type: DataTypes.BOOLEAN,
