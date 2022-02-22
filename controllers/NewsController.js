@@ -4,6 +4,7 @@ const ApiError = require('../exceptions/ApiError')
 class NewsController {
 	async all(req, res, next) {
 		try {
+			const serviceResult = await NewsService.all()
 			return res.status(200).json([])
 		} catch (e) {
 			next(e)
