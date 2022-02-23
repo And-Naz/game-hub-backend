@@ -1,5 +1,5 @@
 'use strict';
-
+require('dotenv').config()
 module.exports = {
 	async up(queryInterface, Sequelize) {
 		const currentDate = (new Date).toISOString().split("T").map(d => { return d.split(".")[0] }).join(" ")
@@ -13,7 +13,7 @@ module.exports = {
 				price: 0,
 				isDiscounted: 0,
 				percentOfDiscount: 0,
-				imageSrc: 'public',
+				imageSrc: process.env.API_URL + '/api/static/images/shareds.jpg',
 				createdAt: currentDate,
 				updatedAt: currentDate,
 			},
@@ -27,7 +27,7 @@ module.exports = {
 				price: 0,
 				isDiscounted: 0,
 				percentOfDiscount: 0,
-				imageSrc: 'public',
+				imageSrc: process.env.API_URL + '/api/static/images/snake.jpg',
 				createdAt: currentDate,
 				updatedAt: currentDate,
 			},
@@ -40,7 +40,7 @@ module.exports = {
 				price: 0,
 				isDiscounted: 0,
 				percentOfDiscount: 0,
-				imageSrc: 'public',
+				imageSrc: process.env.API_URL + '/api/static/images/battle-tanks-io.jpg',
 				createdAt: currentDate,
 				updatedAt: currentDate,
 			},
@@ -53,7 +53,7 @@ module.exports = {
 				price: 27,
 				isDiscounted: 1,
 				percentOfDiscount: 44,
-				imageSrc: 'public',
+				imageSrc: process.env.API_URL + '/api/static/images/fieldsoffuryio.jpg',
 				createdAt: currentDate,
 				updatedAt: currentDate,
 			}

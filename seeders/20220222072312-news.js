@@ -1,17 +1,17 @@
 'use strict';
 
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    const currentDate = (new Date).toISOString().split("T").map(d => { return d.split(".")[0] }).join(" ")
+	async up(queryInterface, Sequelize) {
+		const currentDate = (new Date).toISOString().split("T").map(d => { return d.split(".")[0] }).join(" ")
 		await queryInterface.bulkInsert('news', [
 			{
 				gameUrl: 'https://www.addictinggames.com/embed/html5-games/18346',
 				title: 'Shards',
 				body: 'Jackson Isai? Tu quoque … A te quidem a ante. Vos scitis quod blinking res Ive ‘been vocans super vos? Et conteram illud, et conteram hoc. Maledicant druggie excors. Iam hoc tu facere conatus sum ad te in omni tempore? Ludum mutavit. Verbum est ex. Et … sunt occidat. Videtur quod est super omne oppidum.',
-        date: currentDate,
+				date: currentDate,
 				createdAt: currentDate,
 				updatedAt: currentDate,
-        GameId: 1,
+				GameId: 1,
 			},
 
 			{
@@ -21,7 +21,7 @@ module.exports = {
 				date: currentDate,
 				createdAt: currentDate,
 				updatedAt: currentDate,
-        GameId: 2,
+				GameId: 2,
 			},
 			{
 				gameUrl: 'https://www.addictinggames.com/embed/html5',
@@ -30,7 +30,7 @@ module.exports = {
 				date: currentDate,
 				createdAt: currentDate,
 				updatedAt: currentDate,
-        GameId: 3,
+				GameId: 3,
 			},
 			{
 				gameUrl: 'https://www.addictinggames.com/embed/html5-games/25075',
@@ -39,12 +39,12 @@ module.exports = {
 				date: currentDate,
 				createdAt: currentDate,
 				updatedAt: currentDate,
-        GameId: 4,
+				GameId: 4,
 			}
 		], {});
-  },
+	},
 
-  async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('news', null, {});
-  }
+	async down(queryInterface, Sequelize) {
+		await queryInterface.bulkDelete('news', null, {});
+	}
 };

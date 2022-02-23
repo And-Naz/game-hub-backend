@@ -11,7 +11,7 @@ const db = require('./models')
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }))
-
+app.use('/api/static', express.static(__dirname + '/public'));
 
 app.use('/api/auth', require('./router/authRouter'))
 app.use('/api/games', require('./router/gameRouter'))
