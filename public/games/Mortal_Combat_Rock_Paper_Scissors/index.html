@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<!-- <header>
+		<section class="head">
+			<strong>Magic Fighters</strong>
+		</section>
+	</header> -->
+	<main>
+		<section class="fightDesk">
+			<div class="start-box">
+				<button id="start">Start</button>
+			</div>
+			<div id="desk">
+				
+				<div id="round">
+					
+				</div>
+				<div id="gameDesk">
+					<div id="damag">
+						DAMAG <span id="count">1</span>X
+					</div>
+					<div id="leftBar">
+						<div id="who" class="move">YOUR</div>
+						<div id="p1">
+							<button onclick = "choice(0)" style="background-image: url('media/Paper/Paper.jpeg')"></button>
+							<button onclick = "choice(1)" style="background-image: url('media/Rock/Rock.jpeg')"></button>
+							<button onclick = "choice(2)" style="background-image: url('media/Scissors/Scissors.jpeg')"></button>
+						</div>
+					</div>
+					<div id="rightBar">
+						<div class="move">MOVE</div>
+						<div id="pc">
+							<img id="pcChoice" src="media/Paper/Paper.jpeg" alt="">
+						</div>
+					</div>
+				</div>
+				<div id="player1">
+					<div class="fighterInfo">
+						<div class="name">Scorpion</div>
+						<div id="healthPointP1" class="healthPoints">
+						
+						</div>
+					</div>	
+				</div>
+				<div id="computer">
+					<div class="fighterInfo">
+						<div class="name" style="transform: rotateY(180deg);">Sub-Zero</div>
+						<div id="healthPointP2" class="healthPoints">
+							
+						</div>
+					</div>	
+				</div>
+			</div>
+		</section>
+	</main>
+	<!-- <footer>
+		<strong>Created for interest</strong>
+	</footer> -->
+	<script src="script.js"></script>
+</body>
+</html>
