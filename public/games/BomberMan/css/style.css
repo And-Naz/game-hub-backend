@@ -1,0 +1,62 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+.wrapper {
+	min-height: 100%;
+	height: 100%;
+	width: 100%;
+	position: relative;
+}
+
+.container {
+	padding-top: 150px;
+	padding-bottom: 150px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	flex-direction: column;
+}
+
+.line {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.rectangle {
+	height: 80px;
+	width: 80px;
+	background: #f1f1f1;
+	border: 1px solid #777;
+	position: relative;
+}
+
+.rectangleHide::after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	content: '';
+	background: #999;
+	z-index: 2;
+}
+
+.rectangle > img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}

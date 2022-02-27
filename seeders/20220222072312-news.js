@@ -40,6 +40,24 @@ module.exports = {
 				createdAt: currentDate,
 				updatedAt: currentDate,
 				GameId: 4,
+			},
+			{
+				gameUrl: process.env.API_URL + '/api/static/games/BomberMan/index.html',
+				title: 'BomberMan',
+				body: "BomberMan by Ando",
+				date: currentDate,
+				createdAt: currentDate,
+				updatedAt: currentDate,
+				GameId: 9,
+			},
+			{
+				gameUrl: process.env.API_URL + '/api/static/games/MemoryGame/index.html',
+				title: 'MemoryGame',
+				body: "MemoryGame by Ando",
+				date: currentDate,
+				createdAt: currentDate,
+				updatedAt: currentDate,
+				GameId: 10,
 			}
 		], {});
 	},
